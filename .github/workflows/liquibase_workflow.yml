@@ -39,7 +39,6 @@ jobs:
           export LIQUIBASE_COMMAND_USERNAME="${{ secrets.LIQUIBASE_COMMAND_USERNAME }}"
           export LIQUIBASE_COMMAND_PASSWORD="${{ secrets.LIQUIBASE_COMMAND_PASSWORD }}"
           export LIQUIBASE_COMMAND_CHANGELOG_FILE="${{ secrets.LIQUIBASE_COMMAND_CHANGELOG_FILE }}"
-          export LIQUIBASE_CLASSPATH="${{ secrets.LIQUIBASE_CLASSPATH }}"
           export LIQUIBASE_HUB_API_KEY="${{ secrets.LIQUIBASE_HUB_API_KEY }}"
           ./liquibase/liquibase status --verbose
           ./liquibase/liquibase checks run
@@ -69,7 +68,6 @@ jobs:
           export LIQUIBASE_COMMAND_USERNAME="${{ secrets.LIQUIBASE_COMMAND_USERNAME }}"
           export LIQUIBASE_COMMAND_PASSWORD="${{ secrets.LIQUIBASE_COMMAND_PASSWORD }}"
           export LIQUIBASE_COMMAND_CHANGELOG_FILE="${{ secrets.LIQUIBASE_COMMAND_CHANGELOG_FILE }}"
-          export LIQUIBASE_CLASSPATH="${{ secrets.LIQUIBASE_CLASSPATH }}"
           export LIQUIBASE_HUB_API_KEY="${{ secrets.LIQUIBASE_HUB_API_KEY }}"
           ./liquibase/liquibase status --verbose
           ./liquibase/liquibase checks run
