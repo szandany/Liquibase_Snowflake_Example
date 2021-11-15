@@ -40,7 +40,7 @@ jobs:
     - name: Runnig the History command 
       uses: docker://liquibase/liquibase:snowflake
       with:
-        args: status --verbose
+        args: liquibase history
           
   Test_Job:
     needs: Build_Job
@@ -59,7 +59,7 @@ jobs:
     - name: Runnig the History command 
       uses: docker://liquibase/liquibase:snowflake
       with:
-        args: status --verbose
+        args: liquibase history
           
   
   Deploy_Prod_Job:
@@ -79,6 +79,6 @@ jobs:
         - name: Runnig the History command 
           uses: docker://liquibase/liquibase:snowflake
           with:
-            args: status --verbose
+            args: liquibase history
 
 
