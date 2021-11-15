@@ -28,19 +28,38 @@ jobs:
     environment: 
       name: DEV
 
-    steps:      
-      - name: Build with Liquibase
-        uses: actions/checkout@v2
-      - run: |
-          curl -L https://github.com/liquibase/liquibase/releases/download/v${LB_VERSION}/liquibase-${LB_VERSION}.zip --output liquibase-${LB_VERSION}.zip; unzip -o -d liquibase liquibase-${LB_VERSION}.zip; cp drivers/liquibase-snowflake.jar ./liquibase/lib/; cp drivers/snowflake-jdbc-3.12.0.jar ./liquibase/lib/
-          ./liquibase/liquibase status --verbose
-          ./liquibase/liquibase checks run
-          ./liquibase/liquibase validate
-          ./liquibase/liquibase updateSQL
-          ./liquibase/liquibase tag $GITHUB_RUN_NUMBER
-          ./liquibase/liquibase update
-          ./liquibase/liquibase rollback $GITHUB_RUN_NUMBER
-          ./liquibase/liquibase update
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Running Quality Checks
+      uses: docker://liquibase/liquibase:snowflake
+      with:
+        args: checks run
+        
+    - name: Reviewing pending SQL changes
+      uses: docker://liquibase/liquibase:snowflake
+      with:
+        args: updateSQL
+    
+    - name: Tagging the database for future rollbacks
+      uses: docker://liquibase/liquibase:snowflake
+      with:
+        args: tag $GITHUB_RUN_NUMBER
+    
+    - name: Validating Database Changes
+      uses: docker://liquibase/liquibase:snowflake
+      with:
+        args: update
+      
+    - name: Validating rollbacks
+      uses: docker://liquibase/liquibase:snowflake
+      with:
+        args: rollback $GITHUB_RUN_NUMBER
+        
+    - name: Deploying Database Changes
+      uses: docker://liquibase/liquibase:snowflake
+      with:
+        args: update
           
     
   Test_Job:
@@ -50,20 +69,39 @@ jobs:
       name: TEST
 
     steps:
-      - name: Test with Liquibase
-        uses: actions/checkout@v2
-      - run: |
-          curl -L https://github.com/liquibase/liquibase/releases/download/v${LB_VERSION}/liquibase-${LB_VERSION}.zip --output liquibase-${LB_VERSION}.zip; unzip -o -d liquibase liquibase-${LB_VERSION}.zip; cp drivers/liquibase-snowflake.jar ./liquibase/lib/; cp drivers/snowflake-jdbc-3.12.0.jar ./liquibase/lib/
-          ./liquibase/liquibase status --verbose
-          ./liquibase/liquibase checks run
-          ./liquibase/liquibase validate
-          ./liquibase/liquibase updateSQL
-          ./liquibase/liquibase tag $GITHUB_RUN_NUMBER
-          ./liquibase/liquibase update
-          ./liquibase/liquibase rollback $GITHUB_RUN_NUMBER
-          ./liquibase/liquibase update
-          
-  
+    - uses: actions/checkout@v2
+    
+    - name: Running Quality Checks
+      uses: docker://liquibase/liquibase:snowflake
+      with:
+        args: checks run
+        
+    - name: Reviewing pending SQL changes
+      uses: docker://liquibase/liquibase:snowflake
+      with:
+        args: updateSQL
+    
+    - name: Tagging the database for future rollbacks
+      uses: docker://liquibase/liquibase:snowflake
+      with:
+        args: tag $GITHUB_RUN_NUMBER
+    
+    - name: Validating Database Changes
+      uses: docker://liquibase/liquibase:snowflake
+      with:
+        args: update
+      
+    - name: Validating rollbacks
+      uses: docker://liquibase/liquibase:snowflake
+      with:
+        args: rollback $GITHUB_RUN_NUMBER
+        
+    - name: Deploying Database Changes
+      uses: docker://liquibase/liquibase:snowflake
+      with:
+        args: update
+                
+
   Deploy_Prod_Job:
     needs: Test_Job
     runs-on: ubuntu-latest
@@ -71,15 +109,36 @@ jobs:
       name: PROD
 
     steps:
-      - name: Deploy to Production with Liquibase
-        uses: actions/checkout@v2
-      - run: |
-          curl -L https://github.com/liquibase/liquibase/releases/download/v${LB_VERSION}/liquibase-${LB_VERSION}.zip --output liquibase-${LB_VERSION}.zip; unzip -o -d liquibase liquibase-${LB_VERSION}.zip; cp drivers/liquibase-snowflake.jar ./liquibase/lib/; cp drivers/snowflake-jdbc-3.12.0.jar ./liquibase/lib/
-          ./liquibase/liquibase status --verbose
-          ./liquibase/liquibase checks run
-          ./liquibase/liquibase validate
-          ./liquibase/liquibase updateSQL
-          ./liquibase/liquibase tag $GITHUB_RUN_NUMBER
-          ./liquibase/liquibase update
-          ./liquibase/liquibase rollback $GITHUB_RUN_NUMBER
-          ./liquibase/liquibase update
+    - uses: actions/checkout@v2
+    
+    - name: Running Quality Checks
+      uses: docker://liquibase/liquibase:snowflake
+      with:
+        args: checks run
+        
+    - name: Reviewing pending SQL changes
+      uses: docker://liquibase/liquibase:snowflake
+      with:
+        args: updateSQL
+    
+    - name: Tagging the database for future rollbacks
+      uses: docker://liquibase/liquibase:snowflake
+      with:
+        args: tag $GITHUB_RUN_NUMBER
+    
+    - name: Validating Database Changes
+      uses: docker://liquibase/liquibase:snowflake
+      with:
+        args: update
+      
+    - name: Validating rollbacks
+      uses: docker://liquibase/liquibase:snowflake
+      with:
+        args: rollback $GITHUB_RUN_NUMBER
+        
+    - name: Deploying Database Changes
+      uses: docker://liquibase/liquibase:snowflake
+      with:
+        args: update
+        
+  
