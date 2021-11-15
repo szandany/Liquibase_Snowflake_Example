@@ -64,9 +64,9 @@ jobs:
           ./liquibase/liquibase checks run
           ./liquibase/liquibase validate
           ./liquibase/liquibase updateSQL
-          ./liquibase/liquibase tag "${GITHUB_RUN_NUMBER}"
+          ./liquibase/liquibase tag $GITHUB_RUN_NUMBER
           ./liquibase/liquibase update
-          ./liquibase/liquibase rollback "${GITHUB_RUN_NUMBER}"
+          ./liquibase/liquibase rollback $GITHUB_RUN_NUMBER
           ./liquibase/liquibase update
           
   
@@ -88,7 +88,7 @@ jobs:
           ./liquibase/liquibase checks run
           ./liquibase/liquibase validate
           ./liquibase/liquibase updateSQL
-          ./liquibase/liquibase tag "${GITHUB_JOB}"
+          ./liquibase/liquibase tag $GITHUB_RUN_NUMBER
           ./liquibase/liquibase update
-          ./liquibase/liquibase rollback "${GITHUB_JOB}"
+          ./liquibase/liquibase rollback $GITHUB_RUN_NUMBER
           ./liquibase/liquibase update
