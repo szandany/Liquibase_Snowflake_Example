@@ -35,9 +35,9 @@ jobs:
     steps: 
     - uses: actions/checkout@v2
     - name: Rolling back DEV changes
-      uses: docker://liquibase/liquibase:snowflake
+      uses: docker://liquibase/liquibase:4.6.1
       with:
-        args: --changeLogFile=./changelog/changelogs/changelog.sql rollback ${{ github.event.inputs.tag }}
+        args: --changeLogFile=./changelog/changelogs/changelog.sql checks run
           
   Test_Job:
     needs: Build_Job
