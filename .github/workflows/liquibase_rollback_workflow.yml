@@ -34,7 +34,7 @@ jobs:
       - name: Rolling back DEV changes
         uses: docker://liquibase/liquibase:latest
         with:
-          args: --changeLogFile=./changelogs/changelog.sql --classpath=./drivers/liquibase-snowflake.jar:./drivers/snowflake-jdbc-3.12.0.jar rollback "${{ github.event.inputs.tag }}"
+          args: --changeLogFile=./changelogs/changelog.sql --classpath=./drivers/liquibase-snowflake.jar\:./drivers/snowflake-jdbc-3.12.0.jar rollback "${{ github.event.inputs.tag }}"
           
   Test_Job:
     needs: Build_Job
