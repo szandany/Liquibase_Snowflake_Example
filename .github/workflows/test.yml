@@ -1,0 +1,30 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Test Shell Script
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the main branch
+on:
+  workflow_dispatch:
+#   push:
+#     branches: [ main ]
+#   pull_request:
+#     branches: [ main ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+env:
+    LB_VERSION: "4.6.1"
+
+jobs:
+
+  Build_Job:
+    runs-on: ubuntu-latest
+    environment: 
+      name: DEV
+
+    steps:      
+      - name: Build with Liquibase
+        uses: actions/checkout@v2
+      - run: |
+          cat set_liquibase.sh
+          
