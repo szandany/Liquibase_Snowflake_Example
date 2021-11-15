@@ -32,7 +32,7 @@ jobs:
 
     steps:      
       - name: Rolling back DEV changes
-        uses: docker://liquibase/liquibase:snowflake
+        uses: docker://liquibase/liquibase:latest
         with:
           args: --changeLogFile=./changelogs/changelog.sql rollback "${{ github.event.inputs.tag }}"
           
