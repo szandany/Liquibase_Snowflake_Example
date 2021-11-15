@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps: 
-      - uses: actions/checkout@v
+      - uses: actions/checkout@v2
       - name: Rolling back DEV changes
         uses: docker://liquibase/liquibase:snowflake
         with:
