@@ -29,6 +29,8 @@ jobs:
 
   Build_Job:
     runs-on: ubuntu-latest
+    environment: 
+      name: DEV
 
     steps: 
       - uses: actions/checkout@v2
