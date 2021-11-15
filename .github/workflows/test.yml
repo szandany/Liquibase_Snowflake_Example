@@ -20,8 +20,7 @@ env:
     LIQUIBASE_COMMAND_PASSWORD: ${{ secrets.LIQUIBASE_COMMAND_PASSWORD }}
     LIQUIBASE_COMMAND_CHANGELOG_FILE: ${{ secrets.LIQUIBASE_COMMAND_CHANGELOG_FILE }}
     LIQUIBASE_HUB_API_KEY: ${{ secrets.LIQUIBASE_HUB_API_KEY }}
-    DOWNLOAD_LB: "curl -L https://github.com/liquibase/liquibase/releases/download/v${LB_VERSION}/liquibase-${LB_VERSION}.zip --output liquibase-${LB_VERSION}.zip"
-    UNZIP_LB: "unzip -o -d liquibase liquibase-${LB_VERSION}.zip"
+    DOWNLOAD_LB: "curl -L https://github.com/liquibase/liquibase/releases/download/v4.6.1/liquibase-4.6.1.zip --output liquibase-4.6.1.zip; unzip -o -d liquibase liquibase-4.6.1.zip"
 
 jobs:
 
@@ -35,4 +34,4 @@ jobs:
         uses: actions/checkout@v2
       - run: |
           "${{ env.DOWNLOAD_LB }}"
-          ls
+          ./liquibase/liquibase --version
