@@ -35,5 +35,4 @@ jobs:
         uses: actions/checkout@v2
       - run: |
           "$DOWNLOAD_LIQUIBASE"
-          "$SET_DRIVERS"
           ./liquibase/liquibase --version
