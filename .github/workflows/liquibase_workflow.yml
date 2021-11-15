@@ -13,10 +13,6 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 env:
-    user.email: "<email>"
-    user.name: "<username>"
-    message: "<enter commit message>"
-    branch: "<git branch name>"
     LB_VERSION: "4.6.1"
 
 jobs:
@@ -27,7 +23,7 @@ jobs:
       name: DEV
 
     steps:
-      - name: Build with Liquibase
+      - name: Setup Liquibase
         uses: actions/checkout@v2
       - run: |
           curl -L https://github.com/liquibase/liquibase/releases/download/v${LB_VERSION}/liquibase-${LB_VERSION}.zip --output liquibase-${LB_VERSION}.zip
@@ -40,6 +36,10 @@ jobs:
           export LIQUIBASE_COMMAND_PASSWORD="${{ secrets.LIQUIBASE_COMMAND_PASSWORD }}"
           export LIQUIBASE_COMMAND_CHANGELOG_FILE="${{ secrets.LIQUIBASE_COMMAND_CHANGELOG_FILE }}"
           export LIQUIBASE_HUB_API_KEY="${{ secrets.LIQUIBASE_HUB_API_KEY }}"
+      
+      - name: Build with Liquibase
+        uses: actions/checkout@v2
+      - run: |
           ./liquibase/liquibase status --verbose
           ./liquibase/liquibase checks run
           ./liquibase/liquibase validate
