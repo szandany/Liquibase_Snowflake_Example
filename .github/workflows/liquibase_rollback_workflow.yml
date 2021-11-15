@@ -37,7 +37,7 @@ jobs:
     - name: Rolling back DEV changes
       uses: docker://liquibase/liquibase:latest
       with:
-        args: --changeLogFile=./changelogs/changelog.sql checks run
+        args: --changeLogFile=./Docker/changelog.sql checks run
           
 #   Test_Job:
 #     needs: Build_Job
