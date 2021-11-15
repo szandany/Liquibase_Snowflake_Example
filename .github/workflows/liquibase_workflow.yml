@@ -51,6 +51,7 @@ jobs:
           
     
   Test_Job:
+    needs: Build_Job
     runs-on: ubuntu-latest
     environment: 
       name: TEST
@@ -80,6 +81,7 @@ jobs:
           
   
   Deploy_Prod_Job:
+    needs: Test_Job
     runs-on: ubuntu-latest
     environment: 
       name: PROD
