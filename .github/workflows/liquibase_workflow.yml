@@ -20,6 +20,7 @@ env:
     LIQUIBASE_COMMAND_PASSWORD: ${{ secrets.LIQUIBASE_COMMAND_PASSWORD }}
     LIQUIBASE_COMMAND_CHANGELOG_FILE: ${{ secrets.LIQUIBASE_COMMAND_CHANGELOG_FILE }}
     LIQUIBASE_HUB_API_KEY: ${{ secrets.LIQUIBASE_HUB_API_KEY }}
+    TAG_NAME: $GITHUB_RUN_NUMBER
     
 jobs:
 
@@ -44,7 +45,7 @@ jobs:
     - name: Tagging the database for future rollbacks
       uses: docker://liquibase/liquibase:snowflake
       with:
-        args: tag $GITHUB_RUN_NUMBER
+        args: tag $TAG_NAME
     
     - name: Validating Database Changes
       uses: docker://liquibase/liquibase:snowflake
@@ -54,7 +55,7 @@ jobs:
     - name: Validating rollbacks
       uses: docker://liquibase/liquibase:snowflake
       with:
-        args: rollback $GITHUB_RUN_NUMBER
+        args: rollback $TAG_NAME
         
     - name: Deploying Database Changes
       uses: docker://liquibase/liquibase:snowflake
@@ -84,7 +85,7 @@ jobs:
     - name: Tagging the database for future rollbacks
       uses: docker://liquibase/liquibase:snowflake
       with:
-        args: tag $GITHUB_RUN_NUMBER
+        args: tag $TAG_NAME
     
     - name: Validating Database Changes
       uses: docker://liquibase/liquibase:snowflake
@@ -94,7 +95,7 @@ jobs:
     - name: Validating rollbacks
       uses: docker://liquibase/liquibase:snowflake
       with:
-        args: rollback $GITHUB_RUN_NUMBER
+        args: rollback $TAG_NAME
         
     - name: Deploying Database Changes
       uses: docker://liquibase/liquibase:snowflake
@@ -124,7 +125,7 @@ jobs:
     - name: Tagging the database for future rollbacks
       uses: docker://liquibase/liquibase:snowflake
       with:
-        args: tag $GITHUB_RUN_NUMBER
+        args: tag $TAG_NAME
     
     - name: Validating Database Changes
       uses: docker://liquibase/liquibase:snowflake
@@ -134,7 +135,7 @@ jobs:
     - name: Validating rollbacks
       uses: docker://liquibase/liquibase:snowflake
       with:
-        args: rollback $GITHUB_RUN_NUMBER
+        args: rollback $TAG_NAME
         
     - name: Deploying Database Changes
       uses: docker://liquibase/liquibase:snowflake
