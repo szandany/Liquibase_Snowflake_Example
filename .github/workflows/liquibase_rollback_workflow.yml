@@ -35,7 +35,7 @@ jobs:
     - name: Rolling back DEV changes
       uses: docker://liquibase/liquibase:snowflake
       with:
-        args: rollback ${{ github.event.inputs.tag }}
+        args: history
     
     - name: Runnig the History command 
       uses: docker://liquibase/liquibase:snowflake
