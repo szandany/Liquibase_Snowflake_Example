@@ -1,4 +1,3 @@
-#!/bin/bash
 curl -L https://github.com/liquibase/liquibase/releases/download/v${LB_VERSION}/liquibase-${LB_VERSION}.zip --output liquibase-${LB_VERSION}.zip
 unzip -o -d liquibase liquibase-${LB_VERSION}.zip
 cp drivers/liquibase-snowflake.jar ./liquibase/lib/
