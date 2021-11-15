@@ -20,7 +20,8 @@ env:
     LIQUIBASE_COMMAND_PASSWORD: ${{ secrets.LIQUIBASE_COMMAND_PASSWORD }}
     LIQUIBASE_COMMAND_CHANGELOG_FILE: ${{ secrets.LIQUIBASE_COMMAND_CHANGELOG_FILE }}
     LIQUIBASE_HUB_API_KEY: ${{ secrets.LIQUIBASE_HUB_API_KEY }}
-    DOWNLOAD_LIQUIBASE: "curl -L https://github.com/liquibase/liquibase/releases/download/v${LB_VERSION}/liquibase-${LB_VERSION}.zip --output liquibase-${LB_VERSION}.zip; unzip -o -d liquibase liquibase-${LB_VERSION}.zip;"
+    DOWNLOAD_LB: "curl -L https://github.com/liquibase/liquibase/releases/download/v${LB_VERSION}/liquibase-${LB_VERSION}.zip --output liquibase-${LB_VERSION}.zip"
+    UNZIP_LB: "unzip -o -d liquibase liquibase-${LB_VERSION}.zip"
     SET_DRIVERS: "cp ./drivers/liquibase-snowflake.jar ./liquibase/lib/; cp ./drivers/snowflake-jdbc-3.12.0.jar ./liquibase/lib/"
 
 jobs:
@@ -34,5 +35,6 @@ jobs:
       - name: Build with Liquibase
         uses: actions/checkout@v2
       - run: |
-          "${{ env.DOWNLOAD_LIQUIBASE }}"
+          "${{ env.DOWNLOAD_LB }}"
+          "${{ env.UNZIP_LB }}"
           ./liquibase/liquibase --version
