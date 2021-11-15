@@ -50,7 +50,7 @@ jobs:
         uses: actions/checkout@v2
       - run: |
           curl -L https://github.com/liquibase/liquibase/releases/download/v${LB_VERSION}/liquibase-${LB_VERSION}.zip --output liquibase-${LB_VERSION}.zip; unzip -o -d liquibase liquibase-${LB_VERSION}.zip; cp drivers/liquibase-snowflake.jar ./liquibase/lib/; cp drivers/snowflake-jdbc-3.12.0.jar ./liquibase/lib/
-          ./liquibase/liquibase --changeLogFile=./changelogs/changelog.sql rollback ${{ github.event.inputs.tag }}
+          ./liquibase/liquibase --changeLogFile=./changelog/changelogs/changelog.sql rollback ${{ github.event.inputs.tag }}
           
   
   Deploy_Prod_Job:
