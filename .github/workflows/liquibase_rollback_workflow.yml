@@ -22,7 +22,6 @@ env:
     LIQUIBASE_COMMAND_URL: ${{ secrets.LIQUIBASE_COMMAND_URL }}
     LIQUIBASE_COMMAND_USERNAME: ${{ secrets.LIQUIBASE_COMMAND_USERNAME }}
     LIQUIBASE_COMMAND_PASSWORD: ${{ secrets.LIQUIBASE_COMMAND_PASSWORD }}
-    LIQUIBASE_COMMAND_CHANGELOG_FILE: ${{ secrets.LIQUIBASE_COMMAND_CHANGELOG_FILE }}
     LIQUIBASE_HUB_API_KEY: ${{ secrets.LIQUIBASE_HUB_API_KEY }}
     
 jobs:
@@ -37,7 +36,7 @@ jobs:
     - name: Rolling back DEV changes
       uses: docker://liquibase/liquibase:4.6.1
       with:
-        args: --changeLogFile=../changelogs/changelog.sql checks run
+        args: --changeLogFile=./changelogs/changelog.sql checks run
           
   Test_Job:
     needs: Build_Job
