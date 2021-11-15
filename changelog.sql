@@ -64,3 +64,7 @@ CREATE VIEW MYVIEW_CUSTOMER AS SELECT * FROM CUSTOMER;
 -- Changeset liquibase-docs:addPrimaryKey-example context:DEV labels:Feature1
 ALTER TABLE CUSTOMER ADD CONSTRAINT pk_person PRIMARY KEY (C1, C2);
 --rollback ALTER TABLE CUSTOMER DROP PRIMARY KEY;
+
+-- Changeset SteveZ:createTable-MYTABLE55 context:DEV labels:Feature1
+CREATE TABLE MYTABLE55 (C1 STRING, C2 STRING);
+--rollback DROP TABLE MYTABLE55;
