@@ -33,11 +33,11 @@ jobs:
       name: DEV
 
     steps: 
-      - uses: actions/checkout@v2
-      - name: Rolling back DEV changes
-        uses: docker://liquibase/liquibase:snowflake
-        with:
-          args: rollback ${{ github.event.inputs.tag }}
+    - uses: actions/checkout@v2
+    - name: Rolling back DEV changes
+      uses: docker://liquibase/liquibase:snowflake
+      with:
+        args: rollback ${{ github.event.inputs.tag }}
           
   Test_Job:
     needs: Build_Job
