@@ -35,12 +35,12 @@ jobs:
     - name: Rolling back DEV changes
       uses: docker://liquibase/liquibase:snowflake
       with:
-        args: history
+        args: rollback ${{ github.event.inputs.tag }}
     
     - name: Runnig the History command 
       uses: docker://liquibase/liquibase:snowflake
       with:
-        args: rollback ${{ github.event.inputs.tag }}
+        args: status --verbose
           
   Test_Job:
     needs: Build_Job
@@ -59,7 +59,7 @@ jobs:
     - name: Runnig the History command 
       uses: docker://liquibase/liquibase:snowflake
       with:
-        args: history
+        args: status --verbose
           
   
   Deploy_Prod_Job:
@@ -79,6 +79,6 @@ jobs:
         - name: Runnig the History command 
           uses: docker://liquibase/liquibase:snowflake
           with:
-            args: history
+            args: status --verbose
 
 
