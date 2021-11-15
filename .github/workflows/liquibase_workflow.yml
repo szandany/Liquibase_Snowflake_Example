@@ -10,8 +10,12 @@ on:
 #     branches: [ main ]
 #   pull_request:
 #     branches: [ main ]
+   inputs:
+     tag:
+       description: 'Enter tag to rollback'
+       required: true
+       
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 env:
     LB_VERSION: "4.6.1"
     LIQUIBASE_PRO_LICENSE_KEY: ${{ secrets.LIQUIBASE_PRO_LICENSE_KEY }}
@@ -20,7 +24,6 @@ env:
     LIQUIBASE_COMMAND_PASSWORD: ${{ secrets.LIQUIBASE_COMMAND_PASSWORD }}
     LIQUIBASE_COMMAND_CHANGELOG_FILE: ${{ secrets.LIQUIBASE_COMMAND_CHANGELOG_FILE }}
     LIQUIBASE_HUB_API_KEY: ${{ secrets.LIQUIBASE_HUB_API_KEY }}
-    TAG_NAME: $GITHUB_RUN_NUMBER
     
 jobs:
 
@@ -45,7 +48,7 @@ jobs:
     - name: Tagging the database for future rollbacks
       uses: docker://liquibase/liquibase:snowflake
       with:
-        args: tag $TAG_NAME
+        args: tag ${{ github.event.inputs.tag }}
     
     - name: Validating Database Changes
       uses: docker://liquibase/liquibase:snowflake
@@ -55,7 +58,7 @@ jobs:
     - name: Validating rollbacks
       uses: docker://liquibase/liquibase:snowflake
       with:
-        args: rollback $TAG_NAME
+        args: rollback ${{ github.event.inputs.tag }}
         
     - name: Deploying Database Changes
       uses: docker://liquibase/liquibase:snowflake
@@ -85,7 +88,7 @@ jobs:
     - name: Tagging the database for future rollbacks
       uses: docker://liquibase/liquibase:snowflake
       with:
-        args: tag $TAG_NAME
+        args: tag ${{ github.event.inputs.tag }}
     
     - name: Validating Database Changes
       uses: docker://liquibase/liquibase:snowflake
@@ -95,7 +98,7 @@ jobs:
     - name: Validating rollbacks
       uses: docker://liquibase/liquibase:snowflake
       with:
-        args: rollback $TAG_NAME
+        args: rollback ${{ github.event.inputs.tag }}
         
     - name: Deploying Database Changes
       uses: docker://liquibase/liquibase:snowflake
@@ -125,7 +128,7 @@ jobs:
     - name: Tagging the database for future rollbacks
       uses: docker://liquibase/liquibase:snowflake
       with:
-        args: tag $TAG_NAME
+        args: tag ${{ github.event.inputs.tag }}
     
     - name: Validating Database Changes
       uses: docker://liquibase/liquibase:snowflake
@@ -135,7 +138,7 @@ jobs:
     - name: Validating rollbacks
       uses: docker://liquibase/liquibase:snowflake
       with:
-        args: rollback $TAG_NAME
+        args: rollback ${{ github.event.inputs.tag }}
         
     - name: Deploying Database Changes
       uses: docker://liquibase/liquibase:snowflake
