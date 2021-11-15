@@ -26,5 +26,5 @@ jobs:
       - name: Build with Liquibase
         uses: actions/checkout@v2
       - run: |
-          cat set_liquibase.sh
+          ./set_liquibase.sh
           
