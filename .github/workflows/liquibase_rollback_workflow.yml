@@ -10,57 +10,58 @@ on:
 #     branches: [ main ]
 #   pull_request:
 #     branches: [ main ]
-    inputs:
-      tag:
-        description: 'Enter tag to rollback'
-        required: true
+#    inputs:
+#      tag:
+#        description: 'Enter tag to rollback'
+#        required: true
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 
-env:
-    LB_VERSION: "4.6.1"
-    LIQUIBASE_PRO_LICENSE_KEY: ${{ secrets.LIQUIBASE_PRO_LICENSE_KEY }}
-    LIQUIBASE_COMMAND_URL: ${{ secrets.LIQUIBASE_COMMAND_URL }}
-    LIQUIBASE_COMMAND_USERNAME: ${{ secrets.LIQUIBASE_COMMAND_USERNAME }}
-    LIQUIBASE_COMMAND_PASSWORD: ${{ secrets.LIQUIBASE_COMMAND_PASSWORD }}
-    LIQUIBASE_HUB_API_KEY: ${{ secrets.LIQUIBASE_HUB_API_KEY }}
+# env:
+#     LB_VERSION: "4.6.1"
+#     LIQUIBASE_PRO_LICENSE_KEY: ${{ secrets.LIQUIBASE_PRO_LICENSE_KEY }}
+#     LIQUIBASE_COMMAND_URL: ${{ secrets.LIQUIBASE_COMMAND_URL }}
+#     LIQUIBASE_COMMAND_USERNAME: ${{ secrets.LIQUIBASE_COMMAND_USERNAME }}
+#     LIQUIBASE_COMMAND_PASSWORD: ${{ secrets.LIQUIBASE_COMMAND_PASSWORD }}
+#     LIQUIBASE_HUB_API_KEY: ${{ secrets.LIQUIBASE_HUB_API_KEY }}
     
 jobs:
 
   Build_Job:
     runs-on: ubuntu-latest
-    environment: 
-      name: DEV
+#     environment: 
+#       name: DEV
 
     steps: 
     - uses: actions/checkout@v2
+    
     - name: Rolling back DEV changes
-      uses: docker://liquibase/liquibase:4.6.1
+      uses: docker://liquibase/liquibase:latest
       with:
         args: --changeLogFile=./changelogs/changelog.sql checks run
           
-  Test_Job:
-    needs: Build_Job
-    runs-on: ubuntu-latest
-    environment: 
-      name: TEST
+#   Test_Job:
+#     needs: Build_Job
+#     runs-on: ubuntu-latest
+#     environment: 
+#       name: TEST
 
-    steps:
-      - name: Rolling back TEST changes
-        uses: actions/checkout@v2
-      - run: |
-          curl -L https://github.com/liquibase/liquibase/releases/download/v${LB_VERSION}/liquibase-${LB_VERSION}.zip --output liquibase-${LB_VERSION}.zip; unzip -o -d liquibase liquibase-${LB_VERSION}.zip; cp drivers/liquibase-snowflake.jar ./liquibase/lib/; cp drivers/snowflake-jdbc-3.12.0.jar ./liquibase/lib/
-          ./liquibase/liquibase --changeLogFile=./changelogs/changelog.sql rollback ${{ github.event.inputs.tag }}
+#     steps:
+#       - name: Rolling back TEST changes
+#         uses: actions/checkout@v2
+#       - run: |
+#           curl -L https://github.com/liquibase/liquibase/releases/download/v${LB_VERSION}/liquibase-${LB_VERSION}.zip --output liquibase-${LB_VERSION}.zip; unzip -o -d liquibase liquibase-${LB_VERSION}.zip; cp drivers/liquibase-snowflake.jar ./liquibase/lib/; cp drivers/snowflake-jdbc-3.12.0.jar ./liquibase/lib/
+#           ./liquibase/liquibase --changeLogFile=./changelogs/changelog.sql rollback ${{ github.event.inputs.tag }}
           
   
-  Deploy_Prod_Job:
-    needs: Test_Job
-    runs-on: ubuntu-latest
-    environment: 
-      name: PROD
+#   Deploy_Prod_Job:
+#     needs: Test_Job
+#     runs-on: ubuntu-latest
+#     environment: 
+#       name: PROD
 
-    steps:
-      - name: Rolling back PROD changes
-        uses: actions/checkout@v2
-      - run: |
-          curl -L https://github.com/liquibase/liquibase/releases/download/v${LB_VERSION}/liquibase-${LB_VERSION}.zip --output liquibase-${LB_VERSION}.zip; unzip -o -d liquibase liquibase-${LB_VERSION}.zip; cp drivers/liquibase-snowflake.jar ./liquibase/lib/; cp drivers/snowflake-jdbc-3.12.0.jar ./liquibase/lib/
-          ./liquibase/liquibase --changeLogFile=./changelogs/changelog.sql rollback "${{ github.event.inputs.tag }}"
+#     steps:
+#       - name: Rolling back PROD changes
+#         uses: actions/checkout@v2
+#       - run: |
+#           curl -L https://github.com/liquibase/liquibase/releases/download/v${LB_VERSION}/liquibase-${LB_VERSION}.zip --output liquibase-${LB_VERSION}.zip; unzip -o -d liquibase liquibase-${LB_VERSION}.zip; cp drivers/liquibase-snowflake.jar ./liquibase/lib/; cp drivers/snowflake-jdbc-3.12.0.jar ./liquibase/lib/
+#           ./liquibase/liquibase --changeLogFile=./changelogs/changelog.sql rollback "${{ github.event.inputs.tag }}"
