@@ -23,7 +23,7 @@ jobs:
 
     steps:      
       - name: Rolling back DEV changes
-        uses: docker://liquibase/liquibase:snowflake
+        uses: docker://liquibase/liquibase:latest
         with:
           args: --changeLogFile=./SQL_CODE/changelog.sql checks run
           
