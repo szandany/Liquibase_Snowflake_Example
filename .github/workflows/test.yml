@@ -34,5 +34,5 @@ jobs:
       - name: Build with Liquibase
         uses: actions/checkout@v2
       - run: |
-          "$DOWNLOAD_LIQUIBASE"
+          "${{ env.DOWNLOAD_LIQUIBASE }}"
           ./liquibase/liquibase --version
