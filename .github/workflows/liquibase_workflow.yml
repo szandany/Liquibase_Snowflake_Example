@@ -30,7 +30,6 @@ jobs:
       - name: Build with Liquibase
         uses: actions/checkout@v2
       - run: |
-          bash set_liquibase.sh
           ./liquibase/liquibase status --verbose
           ./liquibase/liquibase checks run
           ./liquibase/liquibase validate
