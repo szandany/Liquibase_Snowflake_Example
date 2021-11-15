@@ -30,7 +30,7 @@ jobs:
       - name: Build with Liquibase
         uses: actions/checkout@v2
       - run: |
-          ./set_liquibase.sh
+          bash set_liquibase.sh
           ./liquibase/liquibase status --verbose
           ./liquibase/liquibase checks run
           ./liquibase/liquibase validate
@@ -50,7 +50,7 @@ jobs:
       - name: Test with Liquibase
         uses: actions/checkout@v2
       - run: |
-          ./set_liquibase.sh
+          bash set_liquibase.sh
           ./liquibase/liquibase status --verbose
           ./liquibase/liquibase checks run
           ./liquibase/liquibase validate
@@ -70,7 +70,7 @@ jobs:
       - name: Deploy to Production with Liquibase
         uses: actions/checkout@v2
       - run: |
-          ./set_liquibase.sh
+          bash set_liquibase.sh
           ./liquibase/liquibase status --verbose
           ./liquibase/liquibase checks run
           ./liquibase/liquibase validate
