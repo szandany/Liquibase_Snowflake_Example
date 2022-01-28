@@ -42,7 +42,7 @@ jobs:
     - name: Reviewing pending SQL changes
       uses: docker://liquibase/liquibase:snowflake
       with:
-        args: updateSQL
+        args: status --verbose
     
     - name: Tagging the database for future rollbacks
       uses: docker://liquibase/liquibase:snowflake
