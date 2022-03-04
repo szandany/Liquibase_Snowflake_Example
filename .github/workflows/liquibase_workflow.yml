@@ -21,7 +21,7 @@ env:
     LIQUIBASE_COMMAND_URL: ${{ secrets.LIQUIBASE_COMMAND_URL }}
     LIQUIBASE_COMMAND_USERNAME: ${{ secrets.LIQUIBASE_COMMAND_USERNAME }}
     LIQUIBASE_COMMAND_PASSWORD: ${{ secrets.LIQUIBASE_COMMAND_PASSWORD }}
-    LIQUIBASE_COMMAND_CHANGELOG_FILE: ${{ secrets.LIQUIBASE_COMMAND_CHANGELOG_FILE }}
+#     LIQUIBASE_COMMAND_CHANGELOG_FILE: ${{ secrets.LIQUIBASE_COMMAND_CHANGELOG_FILE }}
     LIQUIBASE_HUB_API_KEY: ${{ secrets.LIQUIBASE_HUB_API_KEY }}
     
 jobs:
@@ -37,7 +37,7 @@ jobs:
     - name: Running Quality Checks
       uses: docker://liquibase/liquibase:snowflake
       with:
-        args: --changeLogFile=Changelogs/changelog.sql checks run
+        args: --changeLogFile=Changelogs/snowflake1.xml checks run
         
 #     - name: Reviewing pending SQL changes
 #       uses: docker://liquibase/liquibase:snowflake
