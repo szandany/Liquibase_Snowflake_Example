@@ -65,83 +65,83 @@ jobs:
 #         args: update
           
     
-  Test_Job:
-    needs: Build_Job
-    runs-on: ubuntu-latest
-    environment: 
-      name: TEST
+#   Test_Job:
+#     needs: Build_Job
+#     runs-on: ubuntu-latest
+#     environment: 
+#       name: TEST
 
-    steps:
-    - uses: actions/checkout@v2
+#     steps:
+#     - uses: actions/checkout@v2
     
-    - name: Running Quality Checks
-      uses: docker://liquibase/liquibase:snowflake
-      with:
-        args: checks run
+#     - name: Running Quality Checks
+#       uses: docker://liquibase/liquibase:snowflake
+#       with:
+#         args: checks run
         
-    - name: Reviewing pending SQL changes
-      uses: docker://liquibase/liquibase:snowflake
-      with:
-        args: updateSQL
+#     - name: Reviewing pending SQL changes
+#       uses: docker://liquibase/liquibase:snowflake
+#       with:
+#         args: updateSQL
     
-    - name: Tagging the database for future rollbacks
-      uses: docker://liquibase/liquibase:snowflake
-      with:
-        args: tag ${{ github.event.inputs.tag }}
+#     - name: Tagging the database for future rollbacks
+#       uses: docker://liquibase/liquibase:snowflake
+#       with:
+#         args: tag ${{ github.event.inputs.tag }}
     
-    - name: Validating Database Changes
-      uses: docker://liquibase/liquibase:snowflake
-      with:
-        args: update
+#     - name: Validating Database Changes
+#       uses: docker://liquibase/liquibase:snowflake
+#       with:
+#         args: update
       
-    - name: Validating rollbacks
-      uses: docker://liquibase/liquibase:snowflake
-      with:
-        args: rollback ${{ github.event.inputs.tag }}
+#     - name: Validating rollbacks
+#       uses: docker://liquibase/liquibase:snowflake
+#       with:
+#         args: rollback ${{ github.event.inputs.tag }}
         
-    - name: Deploying Database Changes
-      uses: docker://liquibase/liquibase:snowflake
-      with:
-        args: update
+#     - name: Deploying Database Changes
+#       uses: docker://liquibase/liquibase:snowflake
+#       with:
+#         args: update
                 
 
-  Deploy_Prod_Job:
-    needs: Test_Job
-    runs-on: ubuntu-latest
-    environment: 
-      name: PROD
+#   Deploy_Prod_Job:
+#     needs: Test_Job
+#     runs-on: ubuntu-latest
+#     environment: 
+#       name: PROD
 
-    steps:
-    - uses: actions/checkout@v2
+#     steps:
+#     - uses: actions/checkout@v2
     
-    - name: Running Quality Checks
-      uses: docker://liquibase/liquibase:snowflake
-      with:
-        args: checks run
+#     - name: Running Quality Checks
+#       uses: docker://liquibase/liquibase:snowflake
+#       with:
+#         args: checks run
         
-    - name: Reviewing pending SQL changes
-      uses: docker://liquibase/liquibase:snowflake
-      with:
-        args: updateSQL
+#     - name: Reviewing pending SQL changes
+#       uses: docker://liquibase/liquibase:snowflake
+#       with:
+#         args: updateSQL
     
-    - name: Tagging the database for future rollbacks
-      uses: docker://liquibase/liquibase:snowflake
-      with:
-        args: tag ${{ github.event.inputs.tag }}
+#     - name: Tagging the database for future rollbacks
+#       uses: docker://liquibase/liquibase:snowflake
+#       with:
+#         args: tag ${{ github.event.inputs.tag }}
     
-    - name: Validating Database Changes
-      uses: docker://liquibase/liquibase:snowflake
-      with:
-        args: update
+#     - name: Validating Database Changes
+#       uses: docker://liquibase/liquibase:snowflake
+#       with:
+#         args: update
       
-    - name: Validating rollbacks
-      uses: docker://liquibase/liquibase:snowflake
-      with:
-        args: rollback ${{ github.event.inputs.tag }}
+#     - name: Validating rollbacks
+#       uses: docker://liquibase/liquibase:snowflake
+#       with:
+#         args: rollback ${{ github.event.inputs.tag }}
         
-    - name: Deploying Database Changes
-      uses: docker://liquibase/liquibase:snowflake
-      with:
-        args: update
+#     - name: Deploying Database Changes
+#       uses: docker://liquibase/liquibase:snowflake
+#       with:
+#         args: update
         
   
