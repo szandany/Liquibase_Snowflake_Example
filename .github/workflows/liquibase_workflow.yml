@@ -37,7 +37,7 @@ jobs:
     - name: Running Quality Checks
       uses: docker://liquibase/liquibase:snowflake
       with:
-        args: --changeLogFile=Changelogs/snowflake1.xml --driver=Snowflake.jdbc.Driver checks run
+        args: --changeLogFile=Changelogs/snowflake1.xml checks run
         
 #     - name: Reviewing pending SQL changes
 #       uses: docker://liquibase/liquibase:snowflake
