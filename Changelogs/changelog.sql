@@ -36,12 +36,12 @@ DROP VIEW MYVIEW_MYTABLE5;
 ALTER TABLE IF EXISTS MYTABLE5 RENAME TO CUSTOMER;
 --rollback ALTER TABLE IF EXISTS CUSTOMER RENAME TO MYTABLE5;
 
--- Changeset SteveZ:4432535-read_result_set context:DEV labels:Feature1 endDelimiter:/
+-- Changeset SteveZ:4432535-read_result_set endDelimiter:/
 create or replace procedure read_result_set()
   returns float not null
   language javascript
   as     
-  $$  
+  '
     var my_sql_command = "select * from table1";
     var statement1 = snowflake.createStatement( {sqlText: my_sql_command} );
     var result_set1 = statement1.execute();
@@ -52,7 +52,7 @@ create or replace procedure read_result_set()
        // Do something with the retrieved values...
        }
   return 0.0; // Replace with something more useful.
-  $$
+  '
   ;
 /
 --rollback drop procedure read_result_set();
