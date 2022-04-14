@@ -79,11 +79,6 @@ jobs:
       with:
         args: checks run
         
-    - name: Reviewing pending SQL changes
-      uses: docker://liquibase/liquibase:snowflake
-      with:
-        args: updateSQL
-    
     - name: Tagging the database for future rollbacks
       uses: docker://liquibase/liquibase:snowflake
       with:
@@ -118,11 +113,6 @@ jobs:
       uses: docker://liquibase/liquibase:snowflake
       with:
         args: checks run
-        
-    - name: Reviewing pending SQL changes
-      uses: docker://liquibase/liquibase:snowflake
-      with:
-        args: updateSQL
     
     - name: Tagging the database for future rollbacks
       uses: docker://liquibase/liquibase:snowflake
