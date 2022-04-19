@@ -73,11 +73,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    
-    - name: Running Quality Checks
-      uses: docker://liquibase/liquibase:snowflake
-      with:
-        args: checks run
         
     - name: Tagging the database for future rollbacks
       uses: docker://liquibase/liquibase:snowflake
@@ -88,18 +83,7 @@ jobs:
       uses: docker://liquibase/liquibase:snowflake
       with:
         args: update
-      
-    - name: Validating rollbacks
-      uses: docker://liquibase/liquibase:snowflake
-      with:
-        args: rollback ${{ github.event.inputs.tag }}
-        
-    - name: Deploying Database Changes
-      uses: docker://liquibase/liquibase:snowflake
-      with:
-        args: update
-                
-
+  
   Deploy_Prod_Job:
     needs: Test_Job
     runs-on: ubuntu-latest
@@ -109,25 +93,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     
-    - name: Running Quality Checks
-      uses: docker://liquibase/liquibase:snowflake
-      with:
-        args: checks run
-    
     - name: Tagging the database for future rollbacks
       uses: docker://liquibase/liquibase:snowflake
       with:
         args: tag ${{ github.event.inputs.tag }}
-    
-    - name: Validating Database Changes
-      uses: docker://liquibase/liquibase:snowflake
-      with:
-        args: update
-      
-    - name: Validating rollbacks
-      uses: docker://liquibase/liquibase:snowflake
-      with:
-        args: rollback ${{ github.event.inputs.tag }}
         
     - name: Deploying Database Changes
       uses: docker://liquibase/liquibase:snowflake
