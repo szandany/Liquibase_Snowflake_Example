@@ -79,7 +79,7 @@ jobs:
       with:
         args: tag ${{ github.event.inputs.tag }}
     
-    - name: Validating Database Changes
+    - name: Deploying Database Changes
       uses: docker://liquibase/liquibase:snowflake
       with:
         args: update
